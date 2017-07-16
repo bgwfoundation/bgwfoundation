@@ -1,3 +1,9 @@
+function aspire(){
+	var asp_url = window.location.host + "/aspire.html";
+	alert(asp_url);
+	//window.location.assign(asp_url);
+}
+
 jQuery(function($) {'use strict';
 
 	// Navigation Scroll
@@ -20,14 +26,14 @@ jQuery(function($) {'use strict';
 		$('.navbar-collapse').find('.scroll a').each(function(){
 			contentTop.push( $( $(this).attr('href') ).offset().top);
 			contentBottom.push( $( $(this).attr('href') ).offset().top + $( $(this).attr('href') ).height() );
-		})
+		});
 		$.each( contentTop, function(i){
 			if ( winTop > contentTop[i] - rangeTop ){
 				$('.navbar-collapse li.scroll')
 				.removeClass('active')
 				.eq(i).addClass('active');			
 			}
-		})
+		});
 	};
 
 	$('#tohash').on('click', function(){
@@ -81,6 +87,8 @@ jQuery(function($) {'use strict';
 	      start();
 	    }
 	 
+		
+		
 	    //create div#progressBar and div#bar then append to $(".owl-carousel")
 	    function buildProgressBar(){
 	      $progressBar = $("<div>",{
@@ -230,8 +238,4 @@ jQuery(function($) {'use strict';
 	}
 	google.maps.event.addDomListener(window, 'load', initialize_map);
 
-	function aspire(){
-		var asp_url = window.location.host + "/aspire.html";
-		window.location.assign(asp_url);
-	}
 });
