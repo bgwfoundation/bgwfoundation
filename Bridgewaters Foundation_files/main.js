@@ -230,4 +230,8 @@ jQuery(function($) {'use strict';
 	}
 	google.maps.event.addDomListener(window, 'load', initialize_map);
 
+	function aspire(){
+		var asp_url = window.location.host + "/aspire.html";
+		window.location.assign(asp_url);
+	}
 });
