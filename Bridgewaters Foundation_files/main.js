@@ -1,6 +1,5 @@
 function aspire(){
 	var asp_url = window.location.host + "/aspire.html";
-	//alert(asp_url);
 	window.location.assign(asp_url);
 }
 
