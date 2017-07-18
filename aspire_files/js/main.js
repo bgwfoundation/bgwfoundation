@@ -55,7 +55,9 @@
 		 
 		 auth.createUserWithEmailAndPassword(email, password).then(
 		 	function(value) { 
-				$("#span0").html(JSON.stringify(value));
+				$("#span0").html("Verify your email");
+				var user = auth.currentUser;
+				user.sendEmailVerification();
 			}).catch(
 			function(error) { 
 				if(error.message != null)
@@ -67,4 +69,15 @@
 	  }
 	  
   }
+  
+  auth.onAuthStateChanged(
+  	function(user) { 
+		if (user.emailVerified) { 
+			//console.log('Email is verified');
+		} else { 
+			$("#span0").html("Verify your email");
+			alert("Verify your email");
+			//console.log('Email is not verified'); 
+		} 
+	});
   
