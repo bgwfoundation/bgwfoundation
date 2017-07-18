@@ -97,9 +97,7 @@
 	  auth.currentUser.signOut();
 	  
 		auth.signInWithEmailAndPassword(email, password)
-    		.then(function(){
-				
-			},function(error) {
+    		.then(function(error) {
   				// Handle Errors here.
   				var errorCode = error.code;
   				var errorMessage = error.message;
