@@ -55,9 +55,14 @@
 		 
 		 auth.createUserWithEmailAndPassword(email, password).then(
 		 	function(value) { 
-				$("#span0").html("Verify your email");
 				var user = auth.currentUser;
-				user.sendEmailVerification();
+				user.sendEmailVerification().then(function() {
+  					// Email sent.
+					$("#span0").html("A verification link has been sent to your email address");
+				}, function(error) {
+  					// An error happened.
+				});
+
 			}).catch(
 			function(error) { 
 				if(error.message != null)

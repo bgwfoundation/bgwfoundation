@@ -80,7 +80,7 @@ input {
     float: left; width: 100%;
     background-color: transparent;
     border-radius: 5px; border-color:#FFF;
-    color:#FFF; border-style: ridge;
+    color:Cyan; border-style: ridge;
     margin-top:20px;
     margin-right:auto;
     margin-left:auto;
