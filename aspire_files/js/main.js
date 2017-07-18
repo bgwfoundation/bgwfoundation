@@ -13,6 +13,7 @@
   var database = firebase.database();
   var auth = firebase.auth();
   var can_reg = false;
+  var name, email, photoUrl, uid, emailVerified;
   
   function writeUserData(userId, name, email, imageUrl) {
   	database.ref('users/' + userId).set({
@@ -63,7 +64,7 @@
   					// An error happened.
 				});
 
-			}).catch(
+			}, 
 			function(error) { 
 				if(error.message != null)
 					$("#span0").html(JSON.stringify(error.message)); 
@@ -77,12 +78,15 @@
   
   auth.onAuthStateChanged(
   	function(user) { 
-		if (user.emailVerified == true) { 
-			//console.log('Email is verified');
-		} else { 
-			$("#span0").html("Verify your email");
-			alert("Verify your email");
-			//console.log('Email is not verified'); 
+		if (user) { 
+			var user = auth.currentUser;
+			
+			name = user.displayName;
+  			email = user.email;
+  			photoUrl = user.photoURL;
+  			emailVerified = user.emailVerified;
+  			uid = user.uid;
+			alert(email);
 		} 
 	});
   

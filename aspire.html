@@ -24,34 +24,19 @@
 				</a> 
 		</h1> 
 	</header>
-
+	
 	<section>
 	  <main>
 
 	  </main>
 	  
 	  <aside id="right">
+		
 		<form id="register">
 		  <h1 style="text-align: center;">Join ASPIRE</h1>
 		  <fieldset> 
 			<legend>New User</legend> 
-			<!--
-			<div> 
-			  <label>First Name
-				<input id="given-name" name="given-name" type="text" placeholder="First name only" required autofocus> 
-			  </label>
-			</div>
-			<div> 
-			  <label>Last Name
-				<input id="family-name" name="family-name" type="text" placeholder="Last name only" required autofocus> 
-			  </label>
-			</div>
-			<div> 
-			  <label>Date of Birth
-				<input id="dob" name="dob" type="date" required>
-			  </label>
-			</div> 
-			-->
+			
 			<div id="_email"> 
 			  <span>Email</span>
 			  <input id="email" name="email" type="email" placeholder="example@domain.com">
@@ -65,79 +50,9 @@
 			  <input id="confirm-password" name="_confirmpassword" type="password" placeholder="**********">
 			</div>
 			
-			<!--
-			<div>
-			  <label>Flying Skill level (1 low - 100 high)
-				<input id="skill" name="skill" type="range" min="1" max="100" value="0">
-				<output name="output" onforminput="value=a.value">0</output>
-			  </label>
-			</div>
-			-->
 		  </fieldset>
 		  
-		  <!--
-		  <fieldset> 
-			<legend>Billing address</legend> 
-			<div> 
-			  <label>Address 
-				<textarea id="address" name="address" rows=5 required></textarea>
-			  </label> 
-			</div> 
-			<div> 
-			  <label>Post code 
-				<input id="postCode" name="postCode" type="text" required>
-			  </label> 
-			</div> 
-			<div> 
-			  <label>Country 
-				<input id="country" name="country" list="country-names" type="text" required> 
-				<datalist id="country-names"> 
-				  <option label="England" value="England"></option> 
-				  <option label="Northern Ireland" value="Northern Ireland"></option> 
-				  <option label="Ireland" value="Ireland"></option> 
-				  <option label="Scotland" value="Scotland"></option> 
-				  <option label="Wales" value="Wales"></option> 
-				</datalist>
-			  </label> 
-			</div> 
-		  </fieldset> 
-		  
-		  <fieldset> 
-			<legend>Card details</legend> 
-			<fieldset> 
-			  <legend>Card type</legend> 
-			  <div class="card-type"> 
-				<input id="visa" name="cardtype" type="radio"> 
-				<label for="visa">VISA</label> 
-				<input id="mastercard" name="cardtype" type="radio">
-				<label for="mastercard">Mastercard</label> 
-				<input id="amex" name="cardtype" type="radio"> 
-				<label for="amex">AMEX</label>
-			  </div> 
-			</fieldset>
-			<div> 
-			  <label>Name
-				<input id="cardName" name="cardName" type="text" placeholder="Name as it appears on your card" required>
-			  </label>  
-			</div>
-			<div> 
-			  <label>Card number 
-				<input id="cardNo" name="cardNo" type="number" required title="The sixteen digit number across the middle of your card."> 
-			  </label>
-			</div>
-			<div> 
-			  <label>Security code 
-				<input id="security" name="security" type="number" required pattern="[0-9]{3}" title="The last three digits on the back of your card.">
-			  </label> 
-			</div>
-			<div> 
-			  <label>Expiry Date 
-				<input id="expiry" name="expiry" type="month">
-			  </label>
-			</div>
-		  </fieldset> 
-		  -->
-		  <fieldset> 
+		  <fieldset style="background-color: White;"> 
               <p style="text-align: center;">
                 <input id="join" type="button" value="JOIN" name="join" onclick="register()">
               </p> 
@@ -145,13 +60,36 @@
 		  </fieldset> 
 		</form> 
 		
+		<form id="sign-in">
+		  <h1 style="text-align: center;">Or SIGN IN</h1>
+		  <fieldset> 
+			<legend>Sign in</legend> 
+
+			<div id="_email0"> 
+			  <span>Email</span>
+			  <input id="email0" name="email" type="email" placeholder="example@domain.com">
+			</div> 
+			<div id="_password0"> 
+			  <span>Password </span> 
+			  <input id="password0" name="password" type="password" placeholder="**********">
+			</div>    
+		  </fieldset>
+
+		  <fieldset style="background-color: White;"> 
+			<p style="text-align: center;">
+			  <input id="join1" type="button" value="Sign In" name="join1" onclick="signin()">
+			</p> 
+			<span id="span1"></span>
+		  </fieldset> 
+		</form>
+		
 		</aside>
 		
 	</section>
-
-			<footer class="footer">
-	  			<p>Copyright 2017 <a>ASPIRE</a>. All rights reserved. Made by BridgeWaters Foundation</p>
-			</footer>
+	
+	<footer class="footer">
+	  	<p>Copyright 2017 <a>ASPIRE</a>. All rights reserved. Made by BridgeWaters Foundation</p>
+	</footer>
 
   
 
