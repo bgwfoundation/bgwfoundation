@@ -25,8 +25,7 @@
   
   function register() {
 	  email = $("#email").val();
-	  password = $("#password").val();
-	  
+	  var password = $("#password").val();
 	  var confirmpass = $("#confirm-password").val();
 	  
 	  if(confirmpass.localeCompare(password) != 0 || confirmpass.length <= 0 || password.length <= 0){
@@ -87,21 +86,37 @@
   			photoUrl = user.photoURL;
   			emailVerified = user.emailVerified;
   			uid = user.uid;
-			alert(email);
+			
+			if(emailVerified === true){
+				
+			}else{
+				$("#span0").html("Verify your email address");
+				$("#span1").html("Verify your email address");
+			}
 		} 
 	});
 	
 	function signin(){
+		$("#span1").html("");
 		email = $("#email0").val();
-	  password = $("#password0").val();
-	  auth.currentUser.signOut();
-	  
-		auth.signInWithEmailAndPassword(email, password)
-    		.then(function(error) {
-  				// Handle Errors here.
-  				var errorCode = error.code;
+	  var password = $("#password0").val();
+	  if(!(auth.currentUser === null)){
+		  auth.signOut();
+		  _signin(email, password);
+	  }else{
+		  _signin(email, password);
+	  }
+	}
+	
+	function _signin(email, password){
+		firebase.auth().signInWithEmailAndPassword(email, password)
+   			.then(function(user) {
+       			// Success 
+   			}, function(error) {
+       			// Error Handling
+				var errorCode = error.code;
   				var errorMessage = error.message;
-			
+				
   				if (errorCode === 'auth/wrong-password') {
     				//alert('Wrong password.');
 					$("#span1").html("Wrong password");
@@ -109,6 +124,6 @@
     				$("#span1").html(errorMessage);
   				}
   					console.log(error);
-		});
+  			});
 	}
   
