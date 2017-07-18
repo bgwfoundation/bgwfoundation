@@ -24,8 +24,9 @@
   }
   
   function register() {
-	  var email = $("#email").val();
-	  var password = $("#password").val();
+	  email = $("#email").val();
+	  password = $("#password").val();
+	  
 	  var confirmpass = $("#confirm-password").val();
 	  
 	  if(confirmpass.localeCompare(password) != 0 || confirmpass.length <= 0 || password.length <= 0){
@@ -91,6 +92,9 @@
 	});
 	
 	function signin(){
+		email = $("#email0").val();
+	  password = $("#password0").val();
+	  
 		firebase.auth().signInWithEmailAndPassword(email, password)
     		.then(function(){
 				
