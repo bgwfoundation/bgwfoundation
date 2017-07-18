@@ -77,7 +77,7 @@
   
   auth.onAuthStateChanged(
   	function(user) { 
-		if (user.emailVerified) { 
+		if (user.emailVerified == true) { 
 			//console.log('Email is verified');
 		} else { 
 			$("#span0").html("Verify your email");
