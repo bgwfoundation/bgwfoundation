@@ -1,107 +1,41 @@
-<html>
-  <head>
+<html dir="ltr"><head>
 	<title>
 	  ASPIRE
 	</title>
 	
-	<link href="./aspire_files/main.css" rel="stylesheet">
-	<link href="./aspire_files/style.css" rel="stylesheet">
-	<link href="./aspire_files/style(1).css" rel="stylesheet">
-	<link href="./aspire_files/styles.css" rel="stylesheet">
-	<link rel = "stylesheet" href = "https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+	<link href="./aspire_files/css/main.css" rel="stylesheet">
 	  
-	<script src = "https://code.jquery.com/jquery-1.11.3.min.js"></script>
-	<script src = "https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
 	<script src="https://www.gstatic.com/firebasejs/4.1.3/firebase-app.js"></script>
 	<script src="https://www.gstatic.com/firebasejs/4.1.3/firebase-auth.js"></script>
 	<script src="https://www.gstatic.com/firebasejs/4.1.3/firebase-database.js"></script>
 	<script src="https://www.gstatic.com/firebasejs/4.1.3/firebase-messaging.js"></script>
 	<script src="https://www.gstatic.com/firebasejs/4.1.3/firebase-storage.js"></script>
-	
+    <script type="text/javascript" src="./aspire_files/js/main.js"></script>
+    <script src="./aspire_files/js/jquery-3.2.1.min.js"></script>
+  
   </head>
   
-  <body>
-	<div class="header header-default "> 
-		<!--
-		<form class="search-form-header" method="get" action="http://aspire.bgwfoundation.org/"> 
-			<div class="search-box"> 
-				<input type="search" title="Search for:" value="" name="s" placeholder="Enter key words..." class="top-search theme-bg"> 
-			</div> 
-		</form> 
-		-->
-		<div role="navigation" class="navbar navbar-default navbar-bg-light"> 
-			<div class="container"> 
-				<div class="row"> 
-					<div class="col-md-2 col-sm-4 col-xs-4"> 
-						<h1 class="logo"> 
-							<a href="#" title="Aspire"> 
-								<img class="main-logo" src="./aspire_files/Aspire-logo-2.png" alt="Aspire"> 
-							</a> 
-						</h1> 
-					</div> 
-					
-					<!--
-				    <div class="col-md-10 col-sm-8 col-xs-8 iw-menu-none-mobile"> 
-					    <div class="iw-icon-search-cart"> 
-						    <button class="off-canvas-open" type="button"> <i class="fa fa-bars"></i> 
-							</button> 
-						</div> 
-						<div class="iw-menu-default main-menu nav-collapse"> 
-						    <div class="iw-main-menu">
-							    <ul id="menu-menu-one-page-business-1" class="iw-nav-menu">
-								    <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-home current-menu-item page_item page-item-3378 current_page_item menu-item-3531 selected active ">
-									    <a href="http://aspire.bgwfoundation.org/">Home<i></i></a>
-									</li>
-									<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-3270">
-									    <a href="#about-us">About us<i></i>
-										</a>
-						        	</li>
-									<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-3337">
-									    <a href="#whyattend">Why Attend<i></i></a>
-								    </li>
-									<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-3276">
-									    <a href="#join-with-us">Join with us<i></i></a>
-									</li>
-								</ul>
-							</div> 
-						</div> 
-					</div> 
-					-->
-					
-				</div>
-			</div> 
-		</div>
-	</div>
+  <body contenteditable="false">
+	
+	<header>
+		<h1> 
+				<a href="#" title="Aspire"> 
+					<img class="main-logo" src="./aspire_files/Aspire-logo-2.png" alt="Aspire"> 
+				</a> 
+		</h1> 
+	</header>
 
 	<section>
 	  <main>
 
-	  		<footer class="entry-footer ">
-	  			<div>
-				  <footer class="iw-footer iw-footer-v2"> 
-	  				<div class="footer-inner"> 
-	  					<div class="footer-content"> 
-	  						<div class="copy-right">
-	  		 					<div class="container"> 
-	  		 						<div class="row"> 
-	  		 							<div class="col-md-12 col-sm-12"> 
-	  		 								<p>Copyright 2017 © <a>ASPIRE</a>. All rights reserved. 	Made with<i></i>by BridgeWaters Foundation</p> 
-	  		 							</div> 
-	  		 						</div> 
-	  		 					</div> 
-	  		 				</div> 
-	  		 			</div> 
-	  		 		</div>
-	  		 	</footer>
-	  		</div>
-			</footer>
-		</main>
+	  </main>
 	  
 	  <aside id="right">
 		<form id="register">
-		  <h1>Participate in ASPIRE</h1>
-		  <fieldset data-role = "collapsible"> 
-			<legend>Personal details</legend> 
+		  <h1 style="text-align: center;">Join ASPIRE</h1>
+		  <fieldset> 
+			<legend>New User</legend> 
+			<!--
 			<div> 
 			  <label>First Name
 				<input id="given-name" name="given-name" type="text" placeholder="First name only" required autofocus> 
@@ -117,21 +51,20 @@
 				<input id="dob" name="dob" type="date" required>
 			  </label>
 			</div> 
-			<div> 
-			  <label>Email 
-				<input id="email" name="email" type="email" placeholder="example@domain.com" required>
-			  </label> 
+			-->
+			<div id="_email"> 
+			  <span>Email</span>
+			  <input id="email" name="email" type="email" placeholder="example@domain.com">
 			</div> 
-			<div> 
-			  <label>Address 
-				<input id="address" name="address" type="address" placeholder="Address">
-			  </label> 
+			<div id="_password"> 
+			  <span>Password </span> 
+			  <input id="password" name="password" type="password" placeholder="**********">
 			</div>    
-			<div> 
-			  <label>Telephone 
-				<input id="phone" name="phone" type="tel" placeholder="Eg. +2340000000000" required>
-			  </label> 
-			</div> 
+			<div id="_confirmpassword"> 
+			  <span>Confirm Password </span> 
+			  <input id="confirm-password" name="_confirmpassword" type="password" placeholder="**********">
+			</div>
+			<span id="span0"></span>
 			<!--
 			<div>
 			  <label>Flying Skill level (1 low - 100 high)
@@ -205,14 +138,23 @@
 		  </fieldset> 
 		  -->
 		  <fieldset> 
-			<div> 
-			  <button type=submit>Place Order</button> 
-			</div> 
+                      <p style="text-align: center;">
+                          <input id="join" type="button" value="JOIN" name="join" onclick="register()">
+                      </p> 
 		  </fieldset> 
 		</form> 
 		
 		</aside>
 		
 	</section>
-  </body>
+
+			<footer class="footer">
+	  			<p>Copyright 2017 <a>ASPIRE</a>. All rights reserved. Made by BridgeWaters Foundation</p>
+			</footer>
+
+  
+
+
+</body>
+
 </html>
