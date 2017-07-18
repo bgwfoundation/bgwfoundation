@@ -94,8 +94,9 @@
 	function signin(){
 		email = $("#email0").val();
 	  password = $("#password0").val();
+	  auth.currentUser.signOut();
 	  
-		firebase.auth().signInWithEmailAndPassword(email, password)
+		auth.signInWithEmailAndPassword(email, password)
     		.then(function(){
 				
 			},function(error) {
