@@ -52,6 +52,10 @@ aside  {
   flex-grow: 1;
 }
 
+#_profile {
+  display: none;
+}
+
 #right:hover
 {
     width:240px;

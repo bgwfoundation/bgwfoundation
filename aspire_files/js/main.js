@@ -97,6 +97,7 @@
 	});
 	
 	function signin(){
+		
 		$("#span1").html("");
 		email = $("#email0").val();
 	  var password = $("#password0").val();
@@ -106,12 +107,21 @@
 	  }else{
 		  _signin(email, password);
 	  }
+	  
 	}
 	
 	function _signin(email, password){
 		firebase.auth().signInWithEmailAndPassword(email, password)
    			.then(function(user) {
        			// Success 
+				
+				if(user.emailVerified == true){
+					$("#right").hide();
+					$("#_profile").css("display", "table-cell");
+				}else{
+					$("#_profile").css("display", "none");
+				}
+				
    			}, function(error) {
        			// Error Handling
 				var errorCode = error.code;
@@ -123,7 +133,6 @@
  		 		} else {
     				$("#span1").html(errorMessage);
   				}
-  					console.log(error);
   			});
 	}
   
