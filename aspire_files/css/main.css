@@ -5,10 +5,11 @@ body {
   height: 100%;
 }
 
-footer {
+.footer {
   height: 50px; 
   background-color: #000000; 
-  bottom:0; color:#FFF; 
+  bottom:0; 
+  color:#FFF; 
   text-align: center;
   
   width:100%;
@@ -33,31 +34,30 @@ section {
 }
 
 aside  {
+  float: right;
   width: 200px;
   background: MintCream;
   overflow:scroll;
   min-height: 0;
   height: 100%;
-  transition-property: width;
+  transition-property: width;*/
   transition-duration: 0.2s;
   transition-timing-function: linear;
 }
 
-main {
-  overflow:auto;
+#main {
   float: left;
   left: 0;
-  /*
+  width: inherit;
   flex-grow: 1;
-  */
 }
 
-aside:hover
+#right:hover
 {
     width:240px;
 }
 
-aside:unhover{
+#right:unhover{
     width:120px;
 }
 
@@ -96,4 +96,21 @@ input {
 .input_error {
    color:red;
 	border-color:red;
+}
+
+
+table.roundedCorners { 
+  border: 1px solid DarkOrange;
+  border-radius: 13px; 
+  border-spacing: 0;
+ }
+
+table.roundedCorners td, 
+table.roundedCorners th { 
+  border-bottom: 1px solid DarkOrange;
+  padding: 10px; 
+ }
+ 
+table.roundedCorners tr:last-child > td {
+  border-bottom: none;
 }
