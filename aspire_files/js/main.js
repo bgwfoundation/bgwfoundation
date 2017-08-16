@@ -88,7 +88,12 @@
   			uid = user.uid;
 			
 			if(emailVerified === true){
-				
+				name = user.displayName;
+  				email = user.email;
+  				photoUrl = user.photoURL;
+  				emailVerified = user.emailVerified;
+  				uid = user.uid;
+				//$("#_profile").css("visibility", "shown");
 			}else{
 				$("#span0").html("Verify your email address");
 				$("#span1").html("Verify your email address");
@@ -116,10 +121,23 @@
        			// Success 
 				
 				if(user.emailVerified == true){
+					$("#_profile").css("display", 'table-cell');
 					$("#right").hide();
-					$("#_profile").css("display", "table-cell");
+					
+					$("#_eml").val(email);
+					$("#_pass").val(password);
+					$("#_name").val(name);
+					
+					$( "input" ).addClass("removeborders");
+					$("#_prfbutton").removeClass("removeborders");
+					$("#_signout").removeClass("removeborders");
+					$("#_prfbutton").val("Edit Form");
+					$( "select" ).addClass("removeborders");
+					$( "input[disabled=true]" ).attr("disabled", 'true');
+					$( "select[disabled=true]" ).attr("disabled", 'true');
+					
 				}else{
-					$("#_profile").css("display", "none");
+					$("#_profile").css("display", 'none');
 				}
 				
    			}, function(error) {
@@ -134,5 +152,41 @@
     				$("#span1").html(errorMessage);
   				}
   			});
+	}
+	
+	function edit_signout(){
+		var val0 = $("#_prfbutton").val();
+		//$("#_profile").css("visibility", 'hidden');
+		switch(val0) {
+			case "Edit Form":
+				$( "input" ).removeClass("removeborders");
+				$( "select" ).removeClass("removeborders");
+				$( "input[disabled=true]" ).removeAttr("disabled");
+				$( "select[disabled=true]" ).removeAttr("disabled");
+				$("#_eml").prop("disabled", true);
+				$("#_prfbutton").val("Update Form");
+		 		break;
+			case "Update Form":
+				$( "input" ).addClass("removeborders");
+				$("#_prfbutton").removeClass("removeborders");
+				$("#_signout").removeClass("removeborders");
+				$("#_prfbutton").val("Edit Form");
+				$( "select" ).addClass("removeborders");
+				$( "input[disabled=true]" ).attr("disabled", 'true');
+				$( "select[disabled=true]" ).attr("disabled", 'true');
+				break;
+			default:
+				//text = "I have never heard of that fruit...";
+		}
+		
+	}
+	
+	function signout(){
+		$( "input" ).removeClass("removeborders");
+		$("#_profile").css("display", 'none');
+		$("#right").show();
+		
+		auth.signOut();
+		
 	}
   

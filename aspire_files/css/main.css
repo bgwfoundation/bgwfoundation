@@ -33,16 +33,24 @@ section {
   right: 0px;
 }
 
-aside  {
+#right  {
   float: right;
   width: 200px;
   background: MintCream;
   overflow:scroll;
   min-height: 0;
   height: 100%;
-  transition-property: width;*/
+  transition-property: width;
   transition-duration: 0.2s;
   transition-timing-function: linear;
+}
+
+.removeborders{
+  border: none;
+}
+
+#_prntpass {
+  visibility: hidden;
 }
 
 #main {
@@ -67,6 +75,17 @@ aside  {
 
 input {
     border-radius: 10px;
+	border-color: DarkCyan;
+	border-style:solid;
+    float: right;
+    margin-left:auto;
+    margin-right:auto;
+    width: 100%;
+	background-color:transparent;
+}
+
+select{
+  border-radius: 10px;
 	border-color: DarkCyan;
 	border-style:solid;
     float: right;
