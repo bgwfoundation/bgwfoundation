@@ -133,8 +133,10 @@
 					$("#_signout").removeClass("removeborders");
 					$("#_prfbutton").val("Edit Form");
 					$( "select" ).addClass("removeborders");
-					$( "input[disabled=true]" ).attr("disabled", 'true');
+					$( "input" ).prop("disabled", true);
 					$( "#_venue" ).prop("disabled", true);
+					$("#_prfbutton").prop("disabled", false);
+					$("#_signout").prop("disabled", false);
 					
 				}else{
 					$("#_profile").css("display", 'none');
@@ -161,19 +163,26 @@
 			case "Edit Form":
 				$( "input" ).removeClass("removeborders");
 				$( "select" ).removeClass("removeborders");
-				$( "input[disabled=true]" ).removeAttr("disabled");
+				$( "input" ).prop("disabled", false);
+				
 				$( "#_venue" ).prop("disabled", false);
 				$("#_eml").prop("disabled", true);
 				$("#_prfbutton").val("Update Form");
+				
 		 		break;
 			case "Update Form":
+				
 				$( "input" ).addClass("removeborders");
+				$( "input" ).prop("disabled", true);
+				$( "select" ).addClass("removeborders");
+				$( "#_venue" ).prop("disabled", true);
+				
 				$("#_prfbutton").removeClass("removeborders");
 				$("#_signout").removeClass("removeborders");
 				$("#_prfbutton").val("Edit Form");
-				$( "select" ).addClass("removeborders");
-				$( "input[disabled=true]" ).attr("disabled", 'true');
-				$( "#_venue" ).prop("disabled", true);
+				$("#_prfbutton").prop("disabled", false);
+				$("#_signout").prop("disabled", false);
+				
 				break;
 			default:
 				//text = "I have never heard of that fruit...";
@@ -183,6 +192,7 @@
 	
 	function signout(){
 		$( "input" ).removeClass("removeborders");
+		$( "input" ).prop("disabled", false);
 		$("#_profile").css("display", 'none');
 		$("#right").show();
 		

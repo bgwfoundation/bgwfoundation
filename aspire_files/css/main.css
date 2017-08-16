@@ -29,6 +29,7 @@ section {
   /*
   position:fixed;
   */
+  /*display: none;*/
   float: right;
   right: 0px;
 }
