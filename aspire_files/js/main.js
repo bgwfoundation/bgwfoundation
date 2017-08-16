@@ -134,7 +134,7 @@
 					$("#_prfbutton").val("Edit Form");
 					$( "select" ).addClass("removeborders");
 					$( "input[disabled=true]" ).attr("disabled", 'true');
-					$( "select[disabled=true]" ).attr("disabled", 'true');
+					$( "#_venue" ).prop("disabled", true);
 					
 				}else{
 					$("#_profile").css("display", 'none');
@@ -162,7 +162,7 @@
 				$( "input" ).removeClass("removeborders");
 				$( "select" ).removeClass("removeborders");
 				$( "input[disabled=true]" ).removeAttr("disabled");
-				$( "select[disabled=true]" ).removeAttr("disabled");
+				$( "#_venue" ).prop("disabled", false);
 				$("#_eml").prop("disabled", true);
 				$("#_prfbutton").val("Update Form");
 		 		break;
@@ -173,7 +173,7 @@
 				$("#_prfbutton").val("Edit Form");
 				$( "select" ).addClass("removeborders");
 				$( "input[disabled=true]" ).attr("disabled", 'true');
-				$( "select[disabled=true]" ).attr("disabled", 'true');
+				$( "#_venue" ).prop("disabled", true);
 				break;
 			default:
 				//text = "I have never heard of that fruit...";
