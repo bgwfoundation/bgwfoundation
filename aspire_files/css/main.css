@@ -3,6 +3,7 @@ body {
   display: flex;
   flex-direction: column;
   height: 100%;
+  font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
 }
 
 .footer {
@@ -22,16 +23,15 @@ header{
 }
 
 section {
-  height:100%; /* <== for scrolls in aside */
+  height:100%;
 }
 
 #right {
   /*display: none;*/
-  float: right;
-  right: 0px;
 }
 
 #right  {
+  right:0;
   float: right;
   width: 200px;
   background: MintCream;
@@ -55,11 +55,18 @@ section {
   float: left;
   left: 0;
   width: inherit;
+  height: 100%;
   flex-grow: 1;
 }
 
 #_profile {
   display: none;
+  font-size: 12px;
+  margin: 45px;
+  width: 480px;
+  text-align: left;
+  border-collapse: collapse;
+  background: url('../images/patternb1.png');
 }
 
 #right:hover
@@ -92,7 +99,7 @@ select{
 	background-color:transparent;
 }
 
-#span0, #span1{
+#span0, #span1, #span2{
   float: left; width: 100%;
     color: red;
     border-radius: 5px; 
@@ -133,4 +140,29 @@ table.roundedCorners th {
  
 table.roundedCorners tr:last-child > td {
   border-bottom: none;
+}
+
+#_profile thead tr
+{
+	background: url('../images/pattern-head.png');
+}
+#_profile th
+{
+	font-size: 13px;
+	font-weight: normal;
+	padding: 8px;
+	border-bottom: 1px solid #fff;
+	color: #039;
+}
+#_profile td
+{
+	padding: 8px; 
+	border-bottom: 1px solid #fff;
+	color: #669;
+	border-top: 1px solid transparent;
+}
+#_profile tbody tr:hover td
+{
+	color: #339;
+	background: #fff;
 }

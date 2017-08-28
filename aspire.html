@@ -12,116 +12,127 @@
 	<script src="https://www.gstatic.com/firebasejs/4.1.3/firebase-database.js"></script>
 	<script src="https://www.gstatic.com/firebasejs/4.1.3/firebase-messaging.js"></script>
 	<script src="https://www.gstatic.com/firebasejs/4.1.3/firebase-storage.js"></script>
-    <script type="text/javascript" src="./aspire_files/js/main.js"></script>
-    <script src="./aspire_files/js/jquery-3.2.1.min.js"></script>
+        <script type="text/javascript" src="./aspire_files/js/main.js"></script>
+        <script type="text/javascript" src="./aspire_files/js/validate.min.js"></script>
+        <script src="./aspire_files/js/jquery-3.2.1.min.js"></script>
   
   </head>
   
   <body contenteditable="false">
 	
-	<header>
-		<h1> 
+	<header style="width:100%;">
+	  <h1 style="width:100%;"> 
 				<a href="#" title="Aspire"> 
-					<img class="main-logo" src="./aspire_files/Aspire-logo-2.png" alt="Aspire"> 
+					<img class="main-logo" src="./aspire_files/images/Aspire-logo-2.png" alt="Aspire"> 
 				</a> 
 		</h1> 
 	</header>
 	
 	<section>
 	  
-	  <TABLE style="width: 100%; height: 100%;">
-		<TR>
-		  <TD>
+	  <table style="width: 100%; height: 100%;">
+		<tbody><tr>
+		  <td>
 			<div id="main">
 
-			  <TABLE id="_profile">
-				<TD width="50%"></TD>
-				<TD>
+			  <table id="_profile">
+				<tbody><tr><td width="50%"></td>
+				<td>
 				  <p style="text-align: center;">
 					<input id="_signout" type="button" value="Sign Out" name="" onclick="signout()">
 				  </p>
-				</TD>
-				   <TR>
-				        <TD>
-					      <span>Photo : </span>
-				        </TD>
-				        <TD>...</TD>
-				   </TR>
-				   <TR>
-				        <TD>Name : </TD>
-				        <TD>
-				        	<input class="removeborders" id="_name" name="name" type="name" placeholder="name" disabled=true>
-				        </TD>
-				   </TR>
-				   <TR>
-				        <TD>Email : </TD>
-				        <TD>
-					         <input id="_eml" name="email" type="email" placeholder="example@domain.com" style = "border: none" disabled=true>
-				        </TD>
-				   </TR>
-				    <TR>
-				        <TD>Password : </TD>
-					    <TD>
-						  <input class="removeborders" id="_pass" name="password" type="password" placeholder="012345678" disabled=true>
-					    </TD>
-				   </TR>
+				</td>
+				 </tr>
+				 
+				 <tr>
+				   <td>Name : </td>
+				   <td>
+				        	<input class="removeborders" id="_name" name="name" type="name" placeholder="" disabled="true">
+				        </td>
+				  </tr>
+				 <tr>
+				   <td>Email : </td>
+				   <td>
+					         <input id="_eml" name="email" type="email" placeholder="" style="border: none" disabled="true">
+				        </td>
+				  </tr>
 				  
-				    <TR>
+				    <tr>
+				   <td>Phone Number : </td>
+				   <td>
+					      <input class="removeborders" id="_phoneno" name="number" type="phone number" placeholder="" disabled="true">
+				        </td>
+				  </tr>
+				  
+				    <tr>
+				   <td>Password : </td>
+					  <td>
+						  <input class="removeborders" id="_pass" name="password" type="password" placeholder="" disabled="true">
+					    </td>
+				  </tr>
+				  
+				    <tr>
 					  <!---->
-					    <TD><input type="radio" name="ticket" value="invite" checked> Invite 3 people : <br></TD>
-					    <TD>
-						  <input class="removeborders" id="_inv0" placeholder="..." style="" disabled=true>
-						  <input class="removeborders" id="_inv1" placeholder="..." style="" disabled=true>
-						  <input class="removeborders" id="_inv2" placeholder="..." style="" disabled=true>
-					    </TD>
-					</TR>
+					  <td><input type="radio" name="ticket" value="invite" checked=""> Invite 3 people : <br></td>
+					  <td>
+						  <input class="removeborders" id="_inv0" placeholder="" style="margin: 5px;" disabled="true">
+						  <input class="removeborders" id="_inv1" placeholder="" style="margin: 5px;" disabled="true">
+						  <input class="removeborders" id="_inv2" placeholder="" style="margin: 5px;" disabled="true">
+					    </td>
+					</tr>
 					
 					<!--<TR>
 					  <TD><input type="radio" name="ticket" value="cardpay"> Donate : <br></TD>
-					    <TD>
+					  <TD>
 						<input class="removeborders" id="_inv0" placeholder="..." style="" disabled=true>
 						<input class="removeborders" id="_inv1" placeholder="..." style="" disabled=true>
 						<input class="removeborders" id="_inv2" placeholder="..." style="" disabled=true>
 					  </TD>
-				   </TR>-->
+				  </TR>-->
 				  
-				    <TR>
-					  <TD>Prefered Venue : </TD>
-					  <TD>
-						<select class="" id="_venue" disabled=true>
-						    <option value="_abj">Abuja</option>
-						    <option value="_ekt">Ekiti</option>
-						    <option value="_lag">Lagos</option>
+				    <tr>
+					  <td>Prefered Venue : </td>
+					  <td>
+						<select class="" id="_venue" disabled="true">
+						   <option value="_abj">Abuja</option>
+						   <option value="_ekt">Ekiti</option>
+						   <option value="_lag">Lagos</option>
 						</select>
-					  </TD>
-					</TR>
+					  </td>
+					</tr>
 					
-				    <TR>
-					  <TD>
+				    <tr>
+					  <td>
 						
-					  </TD>
-					  <TD>
+					  </td>
+					  <td>
 						<p style="text-align: center;">
-						  <input id="_prfbutton" type="button" value="Edit Form" name="" onclick="edit_signout()">
+						  <input id="_prfbutton" type="button" value="Edit Form" name="" onclick="_editnupdate()">
 						</p>
-					  </TD>
-					</TR>
+					  </td>
+					</tr>
 					
-				<TR>
-				  <TD></TD>
-				  <TD>
+				  <tr>
+					<td colspan="2">
+					  <span id="span2"></span>
+					</td>
+				  </tr>
+				  
+				<tr>
+				  <td></td>
+				  <td>
 					<p style="text-align: center;">
-					  <input id="_prntpass" type="button" value="Print Ticket" name="" onclick="">
+					  <input id="_prntpass" type="button" value="Print Ticket" name="" onclick="_print()">
 					</p>
-				  </TD>
-				</TR>
+				  </td>
+				</tr>
 					
-			  </TABLE>
+			  </tbody></table>
 
 			</div>
-		  </TD>
+		  </td>
 		  
-		  <TD>
+		  <td style="height: 85%;">
 			<div id="right">
 
 			  <form id="register">
@@ -176,20 +187,21 @@
 			  </form>
 
 			</div>
-		  </TD>
-	    </TR>
+		  </td>
+	    </tr>
 		
-		<TR>
-		  <TD COLSPAN="2">
+		<tr>
+		  <td colspan="2">
 			<div class="footer">
 			  <p>Copyright 2017 <a>ASPIRE</a>. All rights reserved. Made by BridgeWaters Foundation</p>
 			</div>
-		  </TD>
-		</TR>
-	  </TABLE>
+		  </td>
+		</tr>
+	  </tbody></table>
 	  
 	</section>
 
-</body>
 
-</html>
+
+
+</body></html>
