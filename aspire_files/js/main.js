@@ -15,9 +15,11 @@ var auth = firebase.auth();
 var can_reg = false;
 var name, email, uid, emailVerified, phoneNumber, epoch, venue, invitees, isVerified;
 
-function writeUserData(userId, name, email, phoneno, invitees, paymentid, isVerified, epoch, venue) {
-    //database.ref("-users/-" + userId).push({ phone_number: phoneno });
-    database.ref("users/" + userId).set({
+//auth.signOut();
+
+function writeUserData(uid, name, email, phoneno, invitees, paymentid, isVerified, epoch, venue) {
+    //database.ref("-users/-" + uid).push({ phone_number: phoneno });
+    database.ref("users/" + uid).set({
 					    "displayName" : name,
 					    "email" : email,
 					    "phone_number": phoneno,
@@ -78,14 +80,14 @@ function register() {
 auth.onAuthStateChanged(
     function(user) { 
 	if (user)
-	{ 
+	{
 	    var user = auth.currentUser;
 
 	    name = user.displayName;
 	    if (name == null || name == "")
 		name = "FULLNAME";
 	    email = user.email;
-	    emailVerified = user.emailVerified;
+	    var emailVerified = user.emailVerified;
 	    uid = user.uid;
 
 	    if (emailVerified == true)
@@ -94,10 +96,12 @@ auth.onAuthStateChanged(
 		email = user.email;
 		emailVerified = user.emailVerified;
 		uid = user.uid;
-		//$("#_profile").css("visibility", "shown");
+		
+		
 	    }
 	    else
 	    {
+		
 		$("#span0").html("Verify your email address");
 		$("#span1").html("Verify your email address");
 	    }
@@ -124,20 +128,10 @@ function signin() {
 function _signin(email, password) {
     firebase.auth().signInWithEmailAndPassword(email, password)
 	.then(function(user) {
-		  // Success 
-
+		  // Success
 		  if (user.emailVerified == true)
 		  {
-		      var eph = getFirstEpoch(uid);
-		      if (!(eph == null) || !(eph.length <= 0) || eph)
-		      {
-			  epoch = eph;
-		      }
-		      else
-		      {
-			  epoch = "" + (new Date()).getTime() + "";
-		      }
-		      
+		      getFirstEpoch(uid);
 		      $("#_profile").css("display", 'table-cell');
 		      $("#right").hide();
 
@@ -303,6 +297,14 @@ function getFirstEpoch(uid) {
     database.ref("/users/" + uid).once('value').then(
 	function(snapshot) {
 	    epch = (snapshot.val() && snapshot.val().epoch);
+	    if (!(epch == null) || !(ecph.length <= 0) || epch)
+	    {
+		epoch = epch;
+	    }
+	    else
+	    {
+		epoch = "" + (new Date()).getTime() + "";
+	    }
 	},
 	function(error) {
 	    alert(error);
@@ -310,7 +312,7 @@ function getFirstEpoch(uid) {
 
     return epoch;
 }
-
+/*
 function getUserData(uid) {
     database.ref("/users/" + uid).once('value').then(
 	function(snapshot) {
@@ -320,7 +322,7 @@ function getUserData(uid) {
 	function(error) {
 	    alert(error);
 	});
-}	
+}	*/
 
 function setUserData(uid) {
     database.ref("/users/" + uid).once('value').then(
@@ -348,7 +350,8 @@ function setUserData(uid) {
 	    
 	},
 	function(error) {
-
+	    if (error.message != null)
+		$("#span0").html(JSON.stringify(error.message));
 	});
 }
 
