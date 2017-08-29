@@ -1,6 +1,4 @@
 
-// Set the configuration for your app
-// TODO: Replace with your project's config object
 var config = {
     apiKey: "AIzaSyBf277qBnCL6Kktj--bpxsnW2tUmIRUOpk",
     authDomain: "aspire-c6ce5.firebaseapp.com",
@@ -12,6 +10,8 @@ firebase.initializeApp(config);
 // Get a reference to the database service
 var database = firebase.database();
 var auth = firebase.auth();
+var fb_provider = auth.FacebookAuthProvider();
+var twit_provider = auth.TwitterAuthProvider();
 var can_reg = false;
 var name, email, uid, emailVerified, phoneNumber, epoch, venue, invitees, isVerified;
 
@@ -20,15 +20,15 @@ var name, email, uid, emailVerified, phoneNumber, epoch, venue, invitees, isVeri
 function writeUserData(uid, name, email, phoneno, invitees, paymentid, isVerified, epoch, venue) {
     //database.ref("-users/-" + uid).push({ phone_number: phoneno });
     database.ref("users/" + uid).set({
-					    "displayName" : name,
-					    "email" : email,
-					    "phone_number": phoneno,
-					    "invitees" : invitees,
-					    "payment_id" : paymentid,
-					    "isVerified" : isVerified,
-					    "epoch": epoch,
-					    "venue": venue
-					});
+					 "displayName" : name,
+					 "email" : email,
+					 "phone_number": phoneno,
+					 "invitees" : invitees,
+					 "payment_id" : paymentid,
+					 "isVerified" : isVerified,
+					 "epoch": epoch,
+					 "venue": venue
+				     });
 }
 
 /*
@@ -96,12 +96,12 @@ auth.onAuthStateChanged(
 		email = user.email;
 		emailVerified = user.emailVerified;
 		uid = user.uid;
-		
-		
+		$("#_pass").val(user.password);
+
 	    }
 	    else
 	    {
-		
+
 		$("#span0").html("Verify your email address");
 		$("#span1").html("Verify your email address");
 	    }
@@ -132,6 +132,7 @@ function _signin(email, password) {
 		  if (user.emailVerified == true)
 		  {
 		      getFirstEpoch(uid);
+		      $("#_pass").val(user.password);
 		      $("#_profile").css("display", 'table-cell');
 		      $("#right").hide();
 
@@ -144,7 +145,7 @@ function _signin(email, password) {
 		      $("#_venue").prop("disabled", true);
 		      $("#_prfbutton").prop("disabled", false);
 		      $("#_signout").prop("disabled", false);
-		      
+
 		      setUserData(uid);
 		  }
 		  else
@@ -265,7 +266,7 @@ function _editnupdate() {
 		email = $("#_eml").val();
 		phoneNumber = $("#_pass").val();
 		invitees = nvts;
-		
+
 		writeUserData(uid, name, email, phonenNumber, invitees, paymentid(uid), isVerified(uid), epoch, venue);
 
 	    }
@@ -312,17 +313,146 @@ function getFirstEpoch(uid) {
 
     return epoch;
 }
-/*
-function getUserData(uid) {
-    database.ref("/users/" + uid).once('value').then(
-	function(snapshot) {
-	    var test = (snapshot.val() && snapshot.val().epoch);
-	    alert(test);
-	},
+
+function facebook_signin() {
+    firebase.auth().signInWithPopup(fb_provider).then(
+        function(result) {
+	    var token = result.credential.accessToken;
+	    var user = result.user;
+	    setUserData(user.id);
+	}, 
 	function(error) {
-	    alert(error);
+	    if (error.code === 'auth/account-exists-with-different-credential')
+	    {
+		// Step 2.
+		// User's email already exists.
+		// The pending Facebook credential.
+		var pendingCred = error.credential;
+		// The provider account's email address.
+		var email = error.email;
+		// Get registered providers for this email.
+		auth.fetchProvidersForEmail(email).then(function(providers) {
+							    // Step 3.
+							    // If the user has several providers,
+							    // the first provider in the list will be the "recommended" provider to use.
+							    if (providers[0] === 'password')
+							    {
+								// Asks the user his password.
+								// In real scenario, you should handle this asynchronously.
+								var password = promptUserForPassword(); // TODO: implement promptUserForPassword.
+								auth.signInWithEmailAndPassword(email, password).then(function(user) {
+															  // Step 4a.
+															  return user.link(pendingCred);
+														      }).then(function() {
+																  // Facebook account successfully linked to the existing Firebase user.
+																  setUserData(user.id);
+															      });
+								return;
+							    }
+							    // All the other cases are external providers.
+							    // Construct provider object for that provider.
+							    // TODO: implement getProviderForProviderId.
+							    var provider = getProviderForProviderId(providers[0]);
+							    // At this point, you should let the user know that he already has an account
+							    // but with a different provider, and let him validate the fact he wants to
+							    // sign in with this provider.
+							    // Sign in to provider. Note: browsers usually block popup triggered asynchronously,
+							    // so in real scenario you should ask the user to click on a "continue" button
+							    // that will trigger the signInWithPopup.
+							    auth.signInWithPopup(provider).then(function(result) {
+												    // Remember that the user may have signed in with an account that has a different email
+												    // address than the first one. This can happen as Firebase doesn't control the provider's
+												    // sign in flow and the user is free to login using whichever account he owns.
+												    // Step 4b.
+												    // Link to Facebook credential.
+												    // As we have access to the pending credential, we can directly call the link method.
+												    result.user.link(pendingCred).then(function() {
+																	   // Facebook account successfully linked to the existing Firebase user.
+																	   setUserData(user.id);
+																       });
+												});
+							});
+	    }
+	}
+    );
+}
+
+function twitter_signin() {
+    // Step 1.
+// User tries to sign in to Twitter.
+    auth.signInWithPopup(new firebase.auth.TwitterAuthProvider()).then(
+	function(result) {
+	    var token = result.credential.accessToken;
+	    var user = result.user;
+	    setUserData(user.id);
+	}, 
+	function(error) {
+	    // An error happened.
+	    if (error.code === 'auth/account-exists-with-different-credential')
+	    {
+		// Step 2.
+		// User's email already exists.
+		// The pending Twitter credential.
+		var pendingCred = error.credential;
+// The provider account's email address.
+		var email = error.email;
+// Get registered providers for this email.
+		auth.fetchProvidersForEmail(email).then(function(providers) {
+// Step 3.
+// If the user has several providers,
+							    // the first provider in the list will be the "recommended" provider to use.
+							    if (providers[0] === 'password')
+							    {
+// Asks the user his password.
+								// In real scenario, you should handle this asynchronously.
+								var password = promptUserForPassword(); // TODO: implement promptUserForPassword.
+								auth.signInWithEmailAndPassword(email, password).then(function(user) {
+															  // Step 4a.
+															  return user.link(pendingCred);
+														      }).then(function() {
+																  // Twitter account successfully linked to the existing Firebase user.
+																  goToApp();
+															      });
+								return;
+							    }
+							    // All the other cases are external providers.
+							    // Construct provider object for that provider.
+							    // TODO: implement getProviderForProviderId.
+							    var provider = getProviderForProviderId(providers[0]);
+							    // At this point, you should let the user know that he already has an account
+							    // but with a different provider, and let him validate the fact he wants to
+							    // sign in with this provider.
+							    // Sign in to provider. Note: browsers usually block popup triggered asynchronously,
+							    // so in real scenario you should ask the user to click on a "continue" button
+// that will trigger the signInWithPopup.
+							    auth.signInWithPopup(provider).then(function(result) {
+// Remember that the user may have signed in with an account that has a different email
+												    // address than the first one. This can happen as Firebase doesn't control the provider's
+												    // sign in flow and the user is free to login using whichever account he owns.
+												    // Step 4b.
+												    // Link to Twitter credential.
+// As we have access to the pending credential, we can directly call the link method.
+												    result.user.link(pendingCred).then(function() {
+																	   // Twitter account successfully linked to the existing Firebase user.
+																	   goToApp();
+																       });
+												});
+							});
+	    }
 	});
-}	*/
+}
+
+/*
+ function getUserData(uid) {
+ database.ref("/users/" + uid).once('value').then(
+ function(snapshot) {
+ var test = (snapshot.val() && snapshot.val().epoch);
+ alert(test);
+ },
+ function(error) {
+ alert(error);
+ });
+ }	*/
 
 function setUserData(uid) {
     database.ref("/users/" + uid).once('value').then(
@@ -332,27 +462,29 @@ function setUserData(uid) {
 	    phoneNumber = (snapshot.val() && snapshot.val().phone_number);
 	    invitees = (snapshot.val() && snapshot.val().invitees);
 	    venue = (snapshot.val() && snapshot.val().venue);
-	    
+
 	    $("#_eml").val(email);
 	    $("#_name").val(name);
 	    $("#_phoneno").val(phoneNumber);
-	    
+
 	    for (var i = 0; i < 3; i++)
 	    {
 		$("#_inv" + i).val(invitees[i]);
 	    }
-	    
+
 	    $("#_venue").val(venue);
-	    
-	    if(snapshot.val() && snapshot.val().isVerified == true){
+
+	    if (snapshot.val() && snapshot.val().isVerified == true)
+	    {
 		$("#_prntpass").css("visibility", "shown");
 	    }
-	    
+
 	},
 	function(error) {
 	    if (error.message != null)
 		$("#span0").html(JSON.stringify(error.message));
-	});
+	}
+    );
 }
 
 function isVerified(uid) {
@@ -364,7 +496,8 @@ function isVerified(uid) {
 	},
 	function(error) {
 
-	});
+	}
+    );
     return false;
 }
 
@@ -376,7 +509,8 @@ function paymentid(uid) {
 	},
 	function(error) {
 
-	});
+	}
+    );
     return paymentid;
 }
 
@@ -386,10 +520,10 @@ function _print() {
     switch (val0)
     {
 	case "Print Ticket":
-	    
+
 	    break;
 	case "Print":
-	    
+
 	    break;
 	default:
 	    //text = "I have never heard of that fruit...";

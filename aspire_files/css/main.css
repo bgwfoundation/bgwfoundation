@@ -4,6 +4,7 @@ body {
   flex-direction: column;
   height: 100%;
   font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+  background: url('../images/patternb1.png');
 }
 
 .footer {
@@ -61,12 +62,9 @@ section {
 
 #_profile {
   display: none;
-  font-size: 12px;
-  margin: 45px;
-  width: 480px;
+  width: 100%;
   text-align: left;
   border-collapse: collapse;
-  background: url('../images/patternb1.png');
 }
 
 #right:hover
@@ -99,7 +97,7 @@ select{
 	background-color:transparent;
 }
 
-#span0, #span1, #span2{
+#span0, #span1, #span2, #span3, #span4{
   float: left; width: 100%;
     color: red;
     border-radius: 5px; 
@@ -111,13 +109,33 @@ select{
 
 #join, #join1{
     float: left; width: 100%;
-    background-color: transparent;
-    border-radius: 20px; 
-	border-color: Maroon;
-    border-style: ridge;
     margin-top:20px;
+}
+
+#_fbsgn{
+     width:100%;
+     overflow: hidden;
+     margin-top:0px;
     margin-right:auto;
     margin-left:auto;
+       background:rgb(139,157,195);
+     border-radius: 10px;
+	border-color: rgb(139,157,195);
+	border-style:solid;
+  color: white;
+}
+
+#_twitsgn{
+     width:100%;
+     overflow: hidden;
+     margin-top:0px;
+    margin-right:auto;
+    margin-left:auto;
+       background:rgb(29,161,242);
+     border-radius: 10px;
+	border-color: rgb(29,161,242);
+	border-style:solid;
+        color: white;
 }
 
 .input_error {
