@@ -6,7 +6,6 @@ var config = {
     databaseURL: "https://aspire-c6ce5.firebaseio.com",
     storageBucket: "bucket.appspot.com"
 };
-firebase.initializeApp(config);
 
 // Get a reference to the database service
 var database = firebase.database();
@@ -15,8 +14,8 @@ var auth = firebase.auth();
 //var twit_provider = auth.TwitterAuthProvider();
 
 fb_provider.setCustomParameters({
- 'display': 'popup'
-});
+				    'display': 'popup'
+				});
 
 var can_reg = false;
 var name, email, uid, emailVerified, phoneNumber, epoch, venue, invitees, isVerified;
@@ -25,16 +24,18 @@ var name, email, uid, emailVerified, phoneNumber, epoch, venue, invitees, isVeri
 
 function writeUserData(uid, name, email, phoneno, invitees, paymentid, isVerified, epoch, venue) {
     //database.ref("-users/-" + uid).push({ phone_number: phoneno });
-    database.ref("users/" + uid).set({
-					 "displayName" : name,
-					 "email" : email,
-					 "phone_number": phoneno,
-					 "invitees" : invitees,
-					 "payment_id" : paymentid,
-					 "isVerified" : isVerified,
-					 "epoch": epoch,
-					 "venue": venue
-				     });
+    database.ref("users/" + uid).set(
+	{
+	    "displayName" : name,
+	    "email" : email,
+	    "phone_number": phoneno,
+	    "invitees" : invitees,
+	    "payment_id" : paymentid,
+	    "isVerified" : isVerified,
+	    "epoch": epoch,
+	    "venue": venue
+	}
+    );
 }
 
 /*
@@ -68,12 +69,14 @@ function register() {
     auth.createUserWithEmailAndPassword(email, password).then(
 	function(value) { 
 	    var user = auth.currentUser;
-	    user.sendEmailVerification().then(function() {
-						  // Email sent.
-						  $("#span0").html("A verification link has been sent to your email address");
-					      }, function(error) {
-						  // An error happened.
-					      });
+	    user.sendEmailVerification().then(
+		function() {
+		    // Email sent.
+		    $("#span0").html("A verification link has been sent to your email address");
+		}, function(error) {
+		    // An error happened.
+		}
+	    );
 
 	}, 
 	function(error) { 
@@ -138,21 +141,8 @@ function _signin(email, password) {
 		  if (user.emailVerified == true)
 		  {
 		      getFirstEpoch(uid);
-		      $("#_pass").val(user.password);
-		      $("#_profile").css("display", 'table-cell');
-		      $("#right").hide();
-
-		      $("input").addClass("removeborders");
-		      $("#_prfbutton").removeClass("removeborders");
-		      $("#_signout").removeClass("removeborders");
-		      $("#_prfbutton").val("Edit Form");
-		      $("select").addClass("removeborders");
-		      $("input").prop("disabled", true);
-		      $("#_venue").prop("disabled", true);
-		      $("#_prfbutton").prop("disabled", false);
-		      $("#_signout").prop("disabled", false);
-
 		      setUserData(uid);
+		      refreshUI0();
 		  }
 		  else
 		  {
@@ -328,6 +318,7 @@ function facebook_signin() {
 	    var token = result.credential.accessToken;
 	    var user = result.user;
 	    setUserData(user.id);
+	    refreshUI0();
 
 	}, function(error) {
 
@@ -351,6 +342,7 @@ function facebook_signin() {
 				}).then(function() {
 					    // Facebook account successfully linked to the existing Firebase user.
 					    setUserData(user.uid);
+					    refreshUI0();
 					}
 				);
 			    return;
@@ -364,6 +356,7 @@ function facebook_signin() {
 				    function() {
 					// Facebook account successfully linked to the existing Firebase user.
 					setUserData(user.uid);
+					refreshUI0();
 				    }
 				);
 			    }
@@ -376,74 +369,74 @@ function facebook_signin() {
 
 	});
 
-    
+
 }
 
 function twitter_signin() {
     //alert("bingo");
     /*
-    // Step 1.
-    // User tries to sign in to Twitter.
-    auth.signInWithPopup(twit_provider).then(
-	function(result) {
-	    var token = result.credential.accessToken;
-	    var user = result.user;
-	    setUserData(user.id);
-	}, 
-	function(error) {
-	    // An error happened.
-	    if (error.code === 'auth/account-exists-with-different-credential')
-	    {
-		// Step 2.
-		// User's email already exists.
-		// The pending Twitter credential.
-		var pendingCred = error.credential;
-// The provider account's email address.
-		var email = error.email;
-// Get registered providers for this email.
-		auth.fetchProvidersForEmail(email).then(function(providers) {
-// Step 3.
-// If the user has several providers,
-							    // the first provider in the list will be the "recommended" provider to use.
-							    if (providers[0] === 'password')
-							    {
-// Asks the user his password.
-								// In real scenario, you should handle this asynchronously.
-								var password = promptUserForPassword(); // TODO: implement promptUserForPassword.
-								auth.signInWithEmailAndPassword(email, password).then(function(user) {
-															  // Step 4a.
-															  return user.link(pendingCred);
-														      }).then(function() {
-																  // Twitter account successfully linked to the existing Firebase user.
-																  goToApp();
-															      });
-								return;
-							    }
-							    // All the other cases are external providers.
-							    // Construct provider object for that provider.
-							    // TODO: implement getProviderForProviderId.
-							    var provider = getProviderForProviderId(providers[0]);
-							    // At this point, you should let the user know that he already has an account
-							    // but with a different provider, and let him validate the fact he wants to
-							    // sign in with this provider.
-							    // Sign in to provider. Note: browsers usually block popup triggered asynchronously,
-							    // so in real scenario you should ask the user to click on a "continue" button
-// that will trigger the signInWithPopup.
-							    auth.signInWithPopup(provider).then(function(result) {
-// Remember that the user may have signed in with an account that has a different email
-												    // address than the first one. This can happen as Firebase doesn't control the provider's
-												    // sign in flow and the user is free to login using whichever account he owns.
-												    // Step 4b.
-												    // Link to Twitter credential.
-// As we have access to the pending credential, we can directly call the link method.
-												    result.user.link(pendingCred).then(function() {
-																	   // Twitter account successfully linked to the existing Firebase user.
-																	   goToApp();
-																       });
-												});
-							});
-	    }
-	});*/
+     // Step 1.
+     // User tries to sign in to Twitter.
+     auth.signInWithPopup(twit_provider).then(
+     function(result) {
+     var token = result.credential.accessToken;
+     var user = result.user;
+     setUserData(user.id);
+     }, 
+     function(error) {
+     // An error happened.
+     if (error.code === 'auth/account-exists-with-different-credential')
+     {
+     // Step 2.
+     // User's email already exists.
+     // The pending Twitter credential.
+     var pendingCred = error.credential;
+     // The provider account's email address.
+     var email = error.email;
+     // Get registered providers for this email.
+     auth.fetchProvidersForEmail(email).then(function(providers) {
+     // Step 3.
+     // If the user has several providers,
+     // the first provider in the list will be the "recommended" provider to use.
+     if (providers[0] === 'password')
+     {
+     // Asks the user his password.
+     // In real scenario, you should handle this asynchronously.
+     var password = promptUserForPassword(); // TODO: implement promptUserForPassword.
+     auth.signInWithEmailAndPassword(email, password).then(function(user) {
+     // Step 4a.
+     return user.link(pendingCred);
+     }).then(function() {
+     // Twitter account successfully linked to the existing Firebase user.
+     goToApp();
+     });
+     return;
+     }
+     // All the other cases are external providers.
+     // Construct provider object for that provider.
+     // TODO: implement getProviderForProviderId.
+     var provider = getProviderForProviderId(providers[0]);
+     // At this point, you should let the user know that he already has an account
+     // but with a different provider, and let him validate the fact he wants to
+     // sign in with this provider.
+     // Sign in to provider. Note: browsers usually block popup triggered asynchronously,
+     // so in real scenario you should ask the user to click on a "continue" button
+     // that will trigger the signInWithPopup.
+     auth.signInWithPopup(provider).then(function(result) {
+     // Remember that the user may have signed in with an account that has a different email
+     // address than the first one. This can happen as Firebase doesn't control the provider's
+     // sign in flow and the user is free to login using whichever account he owns.
+     // Step 4b.
+     // Link to Twitter credential.
+     // As we have access to the pending credential, we can directly call the link method.
+     result.user.link(pendingCred).then(function() {
+     // Twitter account successfully linked to the existing Firebase user.
+     goToApp();
+     });
+     });
+     });
+     }
+     });*/
 }
 
 /*
@@ -489,6 +482,23 @@ function setUserData(uid) {
 		$("#span0").html(JSON.stringify(error.message));
 	}
     );
+}
+
+function refreshUI0() {
+    $("#_pass").val(user.password);
+    $("#_profile").css("display", 'table-cell');
+    $("#right").hide();
+
+    $("input").addClass("removeborders");
+    $("#_prfbutton").removeClass("removeborders");
+    $("#_signout").removeClass("removeborders");
+    $("#_prfbutton").val("Edit Form");
+    $("select").addClass("removeborders");
+    $("input").prop("disabled", true);
+    $("#_venue").prop("disabled", true);
+    $("#_prfbutton").prop("disabled", false);
+    $("#_signout").prop("disabled", false);
+
 }
 
 function isVerified(uid) {
