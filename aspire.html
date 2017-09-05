@@ -1,125 +1,253 @@
 <html dir="ltr"><head>
-	<title>
-	  ASPIRE
-	</title>
-	
-	<link href="./aspire_files/css/main.css" rel="stylesheet">
-	  
-	<script src="https://www.gstatic.com/firebasejs/4.1.3/firebase-app.js"></script>
-	<script src="https://www.gstatic.com/firebasejs/4.1.3/firebase-auth.js"></script>
-	<script src="https://www.gstatic.com/firebasejs/4.1.3/firebase-database.js"></script>
-	<script src="https://www.gstatic.com/firebasejs/4.1.3/firebase-messaging.js"></script>
-	<script src="https://www.gstatic.com/firebasejs/4.1.3/firebase-storage.js"></script>
+    <title>
+      ASPIRE
+    </title>
+
+    <link href="./aspire_files/css/main.css" rel="stylesheet">
+    <script src="https://www.gstatic.com/firebasejs/4.1.3/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/4.1.3/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/4.1.3/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/4.1.3/firebase-messaging.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/4.1.3/firebase-storage.js"></script>
     <script type="text/javascript" src="./aspire_files/js/main.js"></script>
+    <script type="text/javascript" src="./aspire_files/js/validate.min.js"></script>
     <script src="./aspire_files/js/jquery-3.2.1.min.js"></script>
-  
+
   </head>
-  
+
   <body contenteditable="false">
-	
-	<header>
-		<h1> 
-				<a href="#" title="Aspire"> 
-					<img class="main-logo" src="./aspire_files/Aspire-logo-2.png" alt="Aspire"> 
-				</a> 
-		</h1> 
-	</header>
-	
-	<section>
-	  
-	  <TABLE style="width: 100%; height: inherit;">
-		<TR>
-		  <TD>
-			<div id="main">
+<script>
+window.fbAsyncInit = function() {
+    FB.init({
+		appId      : '1053914964710997',
+		xfbml      : true,
+		version    : 'v2.6'
+	    });
+};
+(function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id))
+    {return;}
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/sdk.js";
+    fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));
 
-			  <TABLE id="profile">
-				   <TR>
-				        <TD>Data 1</TD>
-				        <TD>Data 2</TD>
-				     </TR>
-				   <TR>
-				        <TD>Data 3</TD>
-				        <TD>Data 4</TD>
-				     </TR>
-				   <TR>
-				        <TD>Data 5</TD>
-				        <TD>Data 6</TD>
-				     </TR>
+</script>
+    
+    <!--
+  	<div id="fb-root"></div>
+		<script>(function(d, s, id) {
+		  var js, fjs = d.getElementsByTagName(s)[0];
+		  if (d.getElementById(id)) return;
+		  js = d.createElement(s); js.id = id;
+		  js.src = "//connect.facebook.net/en_GB/sdk.js#xfbml=1&appId=1053914964710997";
+		  fjs.parentNode.insertBefore(js, fjs);
+		}(document, 'script', 'facebook-jssdk'));</script>
+		-->
+    <header style="width:100%;">
+      <h1 style="width:100%;"> 
+	<a href="#" title="Aspire"> 
+	  <img class="main-logo" src="./aspire_files/images/Aspire-logo-2.png" alt="Aspire"> 
+	</a> 
+      </h1> 
+    </header>
 
-			  </TABLE>
+    <section>
 
-			</div>
-		  </TD>
-		  
-		  <TD>
-			<div id="right">
+      <table style="width: 100%; height: 100%; ">
+	<tbody>
+	  <tr>
 
-			  <form id="register">
-				<h1 style="text-align: center;">Join ASPIRE</h1>
-				<fieldset> 
-				  <legend>New User</legend> 
+	    <td>
+	      <div id="main">
 
-				  <div id="_email"> 
-					<span>Email</span>
-					<input id="email" name="email" type="email" placeholder="example@domain.com">
-				  </div> 
-				  <div id="_password"> 
-					<span>Password </span> 
-					<input id="password" name="password" type="password" placeholder="**********">
-				  </div>    
-				  <div id="_confirmpassword"> 
-					<span>Confirm Password </span> 
-					<input id="confirm-password" name="_confirmpassword" type="password" placeholder="**********">
-				  </div>
+		<table id="_profile">
+		  <tbody><tr><td width="50%"></td>
+		      <td>
+			<p style="text-align: center;">
+			  <input id="_signout" type="button" value="Sign Out" name="" onclick="signout()">
+			</p>
+		      </td>
+		    </tr>
 
-				</fieldset>
+		    <tr>
+		      <td>Name : </td>
+		      <td>
+			<input class="removeborders" id="_name" name="name" type="name" placeholder="" disabled="true">
+		      </td>
+		    </tr>
+		    <tr>
+		      <td>Email : </td>
+		      <td>
+			<input id="_eml" name="email" type="email" placeholder="" style="border: none" disabled="true">
+		      </td>
+		    </tr>
 
-				<fieldset style="background-color: White;"> 
-				  <p style="text-align: center;">
-					<input id="join" type="button" value="JOIN" name="join" onclick="register()">
-				  </p> 
-				  <span id="span0"></span>
-				</fieldset> 
-			  </form> 
+		    <tr>
+		      <td>Phone Number : </td>
+		      <td>
+			<input class="removeborders" id="_phoneno" name="number" type="phone number" placeholder="" disabled="true">
+		      </td>
+		    </tr>
 
-			  <form id="sign-in">
-				<h1 style="text-align: center;">Or SIGN IN</h1>
-				<fieldset> 
-				  <legend>Sign in</legend> 
+		    <tr>
+		      <td>Password : </td>
+		      <td>
+			<input class="removeborders" id="_pass" name="password" type="password" placeholder="" disabled="true">
+		      </td>
+		    </tr>
 
-				  <div id="_email0"> 
-					<span>Email</span>
-					<input id="email0" name="email0" type="email" placeholder="example@domain.com">
-				  </div> 
-				  <div id="_password0"> 
-					<span>Password </span> 
-					<input id="password0" name="password0" type="password" placeholder="**********">
-				  </div>    
-				</fieldset>
+		    <tr>
+		      <!---->
+		      <td><input type="radio" name="ticket" value="invite" checked=""> Invite 3 people : <br></td>
+		      <td>
+			<input class="removeborders" id="_inv0" placeholder="" style="margin: 5px;" disabled="true">
+			<input class="removeborders" id="_inv1" placeholder="" style="margin: 5px;" disabled="true">
+			<input class="removeborders" id="_inv2" placeholder="" style="margin: 5px;" disabled="true">
+		      </td>
+		    </tr>
 
-				<fieldset style="background-color: White;"> 
-				  <p style="text-align: center;">
-					<input id="join1" type="button" value="Sign In" name="join1" onclick="signin()">
-				  </p> 
-				  <span id="span1"></span>
-				</fieldset> 
-			  </form>
+		    <!--<TR>
+		    <TD><input type="radio" name="ticket" value="cardpay"> Donate : <br></TD>
+		    <TD>
+		    <input class="removeborders" id="_inv0" placeholder="..." style="" disabled=true>
+		    <input class="removeborders" id="_inv1" placeholder="..." style="" disabled=true>
+		    <input class="removeborders" id="_inv2" placeholder="..." style="" disabled=true>
+		    </TD>
+		    </TR>-->
 
-			</div>
-		  </TD>
-	    </TR>
+		    <tr>
+		      <td>Prefered Venue : </td>
+		      <td>
+			<select class="" id="_venue" disabled="true">
+			  <option value="_abj">Abuja</option>
+			  <option value="_ekt">Ekiti</option>
+			  <option value="_lag">Lagos</option>
+			</select>
+		      </td>
+		    </tr>
+
+		    <tr>
+		      <td>
+
+		      </td>
+		      <td>
+			<p style="text-align: center;">
+			  <input id="_prfbutton" type="button" value="Edit Form" name="" onclick="_editnupdate()">
+			</p>
+		      </td>
+		    </tr>
+
+		    <tr>
+		      <td colspan="2">
+			<span id="span2"></span>
+		      </td>
+		    </tr>
+
+		    <tr>
+		      <td></td>
+		      <td>
+			<p style="text-align: center;">
+			  <input id="_prntpass" type="button" value="Print Ticket" name="" onclick="_print()">
+			</p>
+		      </td>
+		    </tr>
+
+		  </tbody></table>
+
+	      </div>
+	    </td>
+
+	    <td style="height: 85%;">
+	      <div id="right">
+
+		<form id="register">
+		  <h1 style="text-align: center;">Join ASPIRE</h1>
+		  <fieldset> 
+		    <legend>New User</legend> 
+
+		    <div id="_email"> 
+		      <span>Email</span>
+		      <input id="email" name="email" type="email" placeholder="example@domain.com">
+		    </div> 
+		    <div id="_password"> 
+		      <span>Password </span> 
+		      <input id="password" name="password" type="password" placeholder="**********">
+		    </div>    
+		    <div id="_confirmpassword"> 
+		      <span>Confirm Password </span> 
+		      <input id="confirm-password" name="_confirmpassword" type="password" placeholder="**********">
+		    </div>
+
+		  </fieldset>
+
+		  <fieldset style="background-color: White;"> 
+		    <p style="text-align: center;">
+		      <input id="join" type="button" value="JOIN" name="join" onclick="register()">
+		    </p> 
+		    <span id="span0"></span>
+		  </fieldset> 
+		</form> 
+
+		<form id="sign-in">
+		  <h1 style="text-align: center;">Or SIGN IN</h1>
+		  <fieldset> 
+		    <legend>Sign in</legend> 
+
+		    <div id="_email0"> 
+		      <span>Email</span>
+		      <input id="email0" name="email0" type="email" placeholder="example@domain.com">
+		    </div> 
+		    <div id="_password0"> 
+		      <span>Password </span> 
+		      <input id="password0" name="password0" type="password" placeholder="**********">
+		    </div>    
+		  </fieldset>
+
+		  <fieldset style="background-color: White;"> 
+		    <p style="text-align: center;">
+		      <input id="join1" type="button" value="Sign In" name="join1" onclick="signin()">
+		    </p> 
+		    <span id="span1"></span>
+		  </fieldset> 
+		</form>
 		
-		<TR>
-		  <TD COLSPAN="2">
-			<div class="footer">
-			  <p>Copyright 2017 <a>ASPIRE</a>. All rights reserved. Made by BridgeWaters Foundation</p>
-			</div>
-		  </TD>
-		</TR>
-	  </TABLE>
-	  
-	</section>
+		<form id="social-login">
+		  <fieldset style="background-color: White; height: inherit;"> 
+		    <p style="text-align: center; width:100%;">
+		      <button id="_fbsgn" type="button" value="Facebook" onclick="facebook_signin()">
+			Login using Facebook
+		      </button>
+		    </p> 
+		    
+		    <p style="text-align: center; width:100%">
+		      <button id="_twitsgn" type="button" value="Twitter" onclick="twitter_signin()">
+			 Login using Twitter 
+		      </button>
+		    </p>
+		    <span id="span3"></span>
+		  </fieldset> 
+		  
+		</form>
 
-</body>
+	      </div>
+	    </td>
 
-</html>
+	  </tr>
+
+	  <tr>
+	    <td colspan="2">
+	      <div class="footer">
+		<p>Copyright 2017 <a>ASPIRE</a>. All rights reserved. Made by BridgeWaters Foundation</p>
+	      </div>
+	    </td>
+	  </tr>
+	</tbody></table>
+
+    </section>
+
+
+
+
+  </body></html>

@@ -3,6 +3,8 @@ body {
   display: flex;
   flex-direction: column;
   height: 100%;
+  font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+  background: url('../images/patternb1.png');
 }
 
 .footer {
@@ -22,34 +24,47 @@ header{
 }
 
 section {
-  height:100%; /* <== for scrolls in aside */
+  height:100%;
 }
 
 #right {
-  /*
-  position:fixed;
-  */
-  float: right;
-  right: 0px;
+  /*display: none;*/
 }
 
-aside  {
+#right  {
+  right:0;
   float: right;
   width: 200px;
   background: MintCream;
   overflow:scroll;
   min-height: 0;
   height: 100%;
-  transition-property: width;*/
+  transition-property: width;
   transition-duration: 0.2s;
   transition-timing-function: linear;
+}
+
+.removeborders{
+  border: none;
+}
+
+#_prntpass {
+  visibility: hidden;
 }
 
 #main {
   float: left;
   left: 0;
   width: inherit;
+  height: 100%;
   flex-grow: 1;
+}
+
+#_profile {
+  display: none;
+  width: 100%;
+  text-align: left;
+  border-collapse: collapse;
 }
 
 #right:hover
@@ -65,6 +80,16 @@ input {
     border-radius: 10px;
 	border-color: DarkCyan;
 	border-style:solid;
+    margin-left:auto;
+    margin-right:auto;
+    width: 100%;
+	background-color:transparent;
+}
+
+select{
+  border-radius: 10px;
+	border-color: DarkCyan;
+	border-style:solid;
     float: right;
     margin-left:auto;
     margin-right:auto;
@@ -72,7 +97,7 @@ input {
 	background-color:transparent;
 }
 
-#span0, #span1{
+#span0, #span1, #span2, #span3, #span4{
   float: left; width: 100%;
     color: red;
     border-radius: 5px; 
@@ -84,13 +109,33 @@ input {
 
 #join, #join1{
     float: left; width: 100%;
-    background-color: transparent;
-    border-radius: 20px; 
-	border-color: Maroon;
-    border-style: ridge;
     margin-top:20px;
+}
+
+#_fbsgn{
+     width:100%;
+     overflow: hidden;
+     margin-top:0px;
     margin-right:auto;
     margin-left:auto;
+       background:rgb(139,157,195);
+     border-radius: 10px;
+	border-color: rgb(139,157,195);
+	border-style:solid;
+  color: white;
+}
+
+#_twitsgn{
+     width:100%;
+     overflow: hidden;
+     margin-top:0px;
+    margin-right:auto;
+    margin-left:auto;
+       background:rgb(29,161,242);
+     border-radius: 10px;
+	border-color: rgb(29,161,242);
+	border-style:solid;
+        color: white;
 }
 
 .input_error {
@@ -113,4 +158,29 @@ table.roundedCorners th {
  
 table.roundedCorners tr:last-child > td {
   border-bottom: none;
+}
+
+#_profile thead tr
+{
+	background: url('../images/pattern-head.png');
+}
+#_profile th
+{
+	font-size: 13px;
+	font-weight: normal;
+	padding: 8px;
+	border-bottom: 1px solid #fff;
+	color: #039;
+}
+#_profile td
+{
+	padding: 8px; 
+	border-bottom: 1px solid #fff;
+	color: #669;
+	border-top: 1px solid transparent;
+}
+#_profile tbody tr:hover td
+{
+	color: #339;
+	background: #fff;
 }
