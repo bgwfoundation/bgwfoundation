@@ -82,6 +82,7 @@ function register() {
 	function(error) { 
 	    if (error.message != null)
 		$("#span0").html(JSON.stringify(error.message)); 
+<<<<<<< HEAD
 	});
 
 }
@@ -324,6 +325,295 @@ function facebook_signin() {
 	    
 	});
 
+=======
+	});
+
+}
+
+auth.onAuthStateChanged(
+    function(user) { 
+	if (user)
+	{
+	    var user = auth.currentUser;
+
+	    name = user.displayName;
+	    if (name == null || name == "")
+		name = "FULLNAME";
+	    email = user.email;
+	    var emailVerified = user.emailVerified;
+	    uid = user.uid;
+
+	    if (emailVerified == true)
+	    {
+		name = user.displayName;
+		email = user.email;
+		emailVerified = user.emailVerified;
+		uid = user.uid;
+		$("#_pass").val(user.password);
+
+	    }
+	    else
+	    {
+
+		$("#span0").html("Verify your email address");
+		$("#span1").html("Verify your email address");
+	    }
+	} 
+    });
+
+function signin() {
+
+    $("#span1").html("");
+    email = $("#email0").val();
+    var password = $("#password0").val();
+    if (!(auth.currentUser == null))
+    {
+	auth.signOut();
+	_signin(email, password);
+    }
+    else
+    {
+	_signin(email, password);
+    }
+
+}
+
+function _signin(email, password) {
+    firebase.auth().signInWithEmailAndPassword(email, password)
+	.then(function(user) {
+		  // Success
+		  if (user.emailVerified == true)
+		  {
+		      getFirstEpoch(uid);
+		      setUserData(uid);
+		      refreshUI0();
+		  }
+		  else
+		  {
+		      $("#_profile").css("display", 'none');
+		  }
+
+	      }, function(error) {
+		  // Error Handling
+		  var errorCode = error.code;
+		  var errorMessage = error.message;
+
+		  if (errorCode == 'auth/wrong-password')
+		  {
+		      //alert('Wrong password.');
+		      $("#span1").html("Wrong password");
+		  }
+		  else
+		  {
+		      $("#span1").html(errorMessage);
+		  }
+	      });
+}
+
+function _editnupdate() {
+    var val0 = $("#_prfbutton").val();
+    //$("#_profile").css("visibility", 'hidden');
+    switch (val0)
+    {
+	case "Edit Form":
+	    $("input").removeClass("removeborders");
+	    $("select").removeClass("removeborders");
+	    $("input").prop("disabled", false);
+
+	    $("#_venue").prop("disabled", false);
+	    $("#_eml").prop("disabled", true);
+	    $("#_prfbutton").val("Update Form");
+
+	    break;
+	case "Update Form":
+	    var can_update = true;
+	    var _err = [];
+
+	    var data = {name: $("#_name").val(), password: $("#_pass").val()};
+
+	    var constraints = {
+		name: {
+		    presence: true,
+		    exclusion: {
+			within: ["null", "name"],
+			message: "'%{value}' is not allowed"
+		    },
+		    format: {
+			pattern: "[a-z]+",
+			flags: "i",
+			message: "can only contain a-z"
+		    }
+		},
+
+		password: {
+		    presence: true,
+		    length: {
+			minimum: 6,
+			message: "must be at least 6 characters"
+		    }
+		}
+	    };
+
+	    var result = validate(data, constraints, {format: "flat"});
+
+	    if (validate.isDefined(result) == true)
+	    {
+		can_update = false;
+		_err.push(result.toString());
+	    }  
+
+	    if ($("#_phoneno").val() == "")
+	    {
+		can_update = false;
+	    }
+	    else
+	    {
+		phoneNumber = $("#_phoneno").val();
+	    }
+
+	    var nvts = [];
+	    for (var i = 0; i < 3; i++)
+	    {
+		if ($("#_inv" + i).val() == "")
+		{
+		    can_update = false;
+		}
+		else
+		{
+		    nvts.push($("#_inv" + i).val());
+		}
+	    }
+
+	    var user_options = document.getElementById("_venue");
+	    venue = user_options.options[user_options.selectedIndex].text;
+
+	    if (can_update == true)
+	    {
+		$("#span2").html("");
+
+		$("input").addClass("removeborders");
+		$("input").prop("disabled", true);
+		$("select").addClass("removeborders");
+		$("#_venue").prop("disabled", true);
+
+		$("#_prfbutton").removeClass("removeborders");
+		$("#_signout").removeClass("removeborders");
+		$("#_prfbutton").val("Edit Form");
+		$("#_prfbutton").prop("disabled", false);
+		$("#_signout").prop("disabled", false);
+
+		name = $("#_name").val();
+		email = $("#_eml").val();
+		phoneNumber = $("#_pass").val();
+		invitees = nvts;
+
+		writeUserData(uid, name, email, phonenNumber, invitees, paymentid(uid), isVerified(uid), epoch, venue);
+
+	    }
+	    else
+	    {
+		$("#span2").html("Something is wrong with your profile: " + 
+				 _err.toString().replace("{", "").replace("}", " ").replace("[", "").replace("]", " ").replace("{", "").replace(",", ", "));
+	    }
+
+	    break;
+	default:
+	    //text = "I have never heard of that fruit...";
+    }
+
+}
+
+function signout() {
+    $("input").removeClass("removeborders");
+    $("input").prop("disabled", false);
+    $("#_profile").css("display", 'none');
+    $("#right").show();
+
+    auth.signOut();
+
+}
+
+function getFirstEpoch(uid) {
+    var epch = "";
+    database.ref("/users/" + uid).once('value').then(
+	function(snapshot) {
+	    epch = (snapshot.val() && snapshot.val().epoch);
+	    if (!(epch == null) || !(ecph.length <= 0) || epch)
+	    {
+		epoch = epch;
+	    }
+	    else
+	    {
+		epoch = "" + (new Date()).getTime() + "";
+	    }
+	},
+	function(error) {
+	    alert(error);
+	});
+
+    return epoch;
+}
+
+function facebook_signin() {
+    var provider = new firebase.auth.FacebookAuthProvider();
+
+    firebase.auth().signInWithPopup(provider).then(
+	function(result) {
+	    var token = result.credential.accessToken;
+	    var user = result.user;
+	    setUserData(user.id);
+	    refreshUI0();
+
+	}, function(error) {
+
+	    if (error.code === 'auth/account-exists-with-different-credential')
+	    {
+		var pendingCred = error.credential;
+		var email = error.email;
+
+		// Get registered providers for this email.
+		auth.fetchProvidersForEmail(email).then(
+		    function(providers) {
+
+			if (providers[0] === 'password')
+			{
+			    // Asks the user his password. In real scenario, you should handle this asynchronously.
+			    var password = promptUserForPassword(); 
+			    // TODO: implement promptUserForPassword.
+			    auth.signInWithEmailAndPassword(email, password).then(
+				function(user) {
+				    return user.link(pendingCred);
+				}).then(function() {
+					    // Facebook account successfully linked to the existing Firebase user.
+					    setUserData(user.uid);
+					    refreshUI0();
+					}
+				);
+			    return;
+			}
+
+			var provider = getProviderForProviderId(providers[0]);
+
+			auth.signInWithPopup(provider).then(
+			    function(result) {
+				result.user.link(pendingCred).then(
+				    function() {
+					// Facebook account successfully linked to the existing Firebase user.
+					setUserData(user.uid);
+					refreshUI0();
+				    }
+				);
+			    }
+			);
+
+		    }
+		);
+
+	    }
+
+	});
+
+>>>>>>> origin/master
 
 }
 
