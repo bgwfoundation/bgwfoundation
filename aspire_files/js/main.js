@@ -82,7 +82,6 @@ function register() {
 	function(error) { 
 	    if (error.message != null)
 		$("#span0").html(JSON.stringify(error.message)); 
-<<<<<<< HEAD
 	});
 
 }
@@ -325,8 +324,7 @@ function facebook_signin() {
 	    
 	});
 
-=======
-	});
+	
 
 }
 
@@ -567,8 +565,6 @@ function facebook_signin() {
 	}, function(error) {
 	    
 	});
-
->>>>>>> origin/master
 
 }
 
