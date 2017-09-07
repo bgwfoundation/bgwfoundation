@@ -500,7 +500,8 @@ function _print() {
 
 }
 
-function aspire(){
+function aspire_home(){
 	var asp_url = window.location.host + "/aspire.html";
 	window.location.assign(asp_url);
+	//alert(window.location.host.toString());
 }
