@@ -97,6 +97,14 @@ select{
 	background-color:transparent;
 }
 
+input.radiogroup0{
+  border-radius: 10px;
+  border-color: DarkCyan;
+  border-style:solid;
+  background-color: transparent;
+  width: auto;
+}
+
 #span0, #span1, #span2, #span3, #span4{
   float: left; width: 100%;
     color: red;
