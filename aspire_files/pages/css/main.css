@@ -34,14 +34,14 @@ section {
 #right  {
   right:0;
   float: right;
-  width: 200px;
+  width: 50%;
   background: MintCream;
-  overflow:scroll;
+  /*overflow:scroll;*/
   min-height: 0;
   height: 100%;
-  transition-property: width;
+  /*transition-property: width;
   transition-duration: 0.2s;
-  transition-timing-function: linear;
+  transition-timing-function: linear;*/
 }
 
 .removeborders{
@@ -55,7 +55,7 @@ section {
 #main {
   float: left;
   left: 0;
-  width: inherit;
+  width: 50%;
   height: 100%;
   flex-grow: 1;
 }
@@ -67,14 +67,14 @@ section {
   border-collapse: collapse;
 }
 
-#right:hover
+/*#right:hover
 {
     width:240px;
 }
 
 #right:unhover{
     width:120px;
-}
+}*/
 
 input {
     border-radius: 10px;
@@ -194,7 +194,7 @@ table.roundedCorners tr:last-child > td {
 }
 
 ul {
-    list-style-type: none;
+    /*list-style-type: none;*/
     margin: 0;
     padding: 0;
     overflow: hidden;
